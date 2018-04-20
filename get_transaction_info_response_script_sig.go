@@ -9,8 +9,9 @@
 
 package swagger
 
-type BroadcastTxRequest struct {
+type GetTransactionInfoResponseScriptSig struct {
 
-	// Signed raw tx hex to broadcast
-	TxHex string `json:"txHex"`
+	Asm string `json:"asm,omitempty"`
+
+	Hex string `json:"hex,omitempty"`
 }

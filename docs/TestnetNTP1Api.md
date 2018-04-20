@@ -1,23 +1,23 @@
-# \NTP1Api
+# \TestnetNTP1Api
 
 All URIs are relative to *https://ntp1node.nebl.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**BroadcastTx**](NTP1Api.md#BroadcastTx) | **Post** /ntp1/broadcast | Broadcasts a signed raw transaction to the network
-[**BurnToken**](NTP1Api.md#BurnToken) | **Post** /ntp1/burntoken | Builds a transaction that burns an NTP1 Token
-[**GetAddressInfo**](NTP1Api.md#GetAddressInfo) | **Get** /ntp1/addressinfo/{address} | Information On a Neblio Address
-[**GetTokenHolders**](NTP1Api.md#GetTokenHolders) | **Get** /ntp1/stakeholders/{tokenid} | Get Addresses Holding a Token
-[**GetTokenId**](NTP1Api.md#GetTokenId) | **Get** /ntp1/tokenid/{tokensymbol} | Returns the tokenId representing a token
-[**GetTokenMetadataOfIssuance**](NTP1Api.md#GetTokenMetadataOfIssuance) | **Get** /ntp1/tokenmetadata/{tokenid} | Get Issuance Metadata of Token
-[**GetTokenMetadataOfUtxo**](NTP1Api.md#GetTokenMetadataOfUtxo) | **Get** /ntp1/tokenmetadata/{tokenid}/{utxo} | Get UTXO Metadata of Token
-[**GetTransactionInfo**](NTP1Api.md#GetTransactionInfo) | **Get** /ntp1/transactioninfo/{txid} | Information On an NTP1 Transaction
-[**IssueToken**](NTP1Api.md#IssueToken) | **Post** /ntp1/issue | Builds a transaction that issues a new NTP1 Token
-[**SendToken**](NTP1Api.md#SendToken) | **Post** /ntp1/sendtoken | Builds a transaction that sends an NTP1 Token
+[**TestnetBroadcastTx**](TestnetNTP1Api.md#TestnetBroadcastTx) | **Post** /testnet/ntp1/broadcast | Broadcasts a signed raw transaction to the network
+[**TestnetBurnToken**](TestnetNTP1Api.md#TestnetBurnToken) | **Post** /testnet/ntp1/burntoken | Builds a transaction that burns an NTP1 Token
+[**TestnetGetAddressInfo**](TestnetNTP1Api.md#TestnetGetAddressInfo) | **Get** /testnet/ntp1/addressinfo/{address} | Information On a Neblio Address
+[**TestnetGetTokenHolders**](TestnetNTP1Api.md#TestnetGetTokenHolders) | **Get** /testnet/ntp1/stakeholders/{tokenid} | Get Addresses Holding a Token
+[**TestnetGetTokenId**](TestnetNTP1Api.md#TestnetGetTokenId) | **Get** /testnet/ntp1/tokenid/{tokensymbol} | Returns the tokenId representing a token
+[**TestnetGetTokenMetadataOfIssuance**](TestnetNTP1Api.md#TestnetGetTokenMetadataOfIssuance) | **Get** /testnet/ntp1/tokenmetadata/{tokenid} | Get Issuance Metadata of Token
+[**TestnetGetTokenMetadataOfUtxo**](TestnetNTP1Api.md#TestnetGetTokenMetadataOfUtxo) | **Get** /testnet/ntp1/tokenmetadata/{tokenid}/{utxo} | Get UTXO Metadata of Token
+[**TestnetGetTransactionInfo**](TestnetNTP1Api.md#TestnetGetTransactionInfo) | **Get** /testnet/ntp1/transactioninfo/{txid} | Information On an NTP1 Transaction
+[**TestnetIssueToken**](TestnetNTP1Api.md#TestnetIssueToken) | **Post** /testnet/ntp1/issue | Builds a transaction that issues a new NTP1 Token
+[**TestnetSendToken**](TestnetNTP1Api.md#TestnetSendToken) | **Post** /testnet/ntp1/sendtoken | Builds a transaction that sends an NTP1 Token
 
 
-# **BroadcastTx**
-> BroadcastTxResponse BroadcastTx(ctx, body)
+# **TestnetBroadcastTx**
+> BroadcastTxResponse TestnetBroadcastTx(ctx, body)
 Broadcasts a signed raw transaction to the network
 
 Broadcasts a signed raw transaction to the network. If successful returns the txid of the broadcast trasnaction. 
@@ -44,8 +44,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **BurnToken**
-> BurnTokenResponse BurnToken(ctx, body)
+# **TestnetBurnToken**
+> BurnTokenResponse TestnetBurnToken(ctx, body)
 Builds a transaction that burns an NTP1 Token
 
 Builds an unsigned raw transaction that burns an NTP1 token on the Neblio blockchain. 
@@ -72,8 +72,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetAddressInfo**
-> GetAddressInfoResponse GetAddressInfo(ctx, address)
+# **TestnetGetAddressInfo**
+> GetAddressInfoResponse TestnetGetAddressInfo(ctx, address)
 Information On a Neblio Address
 
 Returns both NEBL and NTP1 token UTXOs held at the given address. 
@@ -100,8 +100,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetTokenHolders**
-> GetTokenHoldersResponse GetTokenHolders(ctx, tokenid)
+# **TestnetGetTokenHolders**
+> GetTokenHoldersResponse TestnetGetTokenHolders(ctx, tokenid)
 Get Addresses Holding a Token
 
 Returns the the the addresses holding a token and how many tokens are held 
@@ -128,8 +128,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetTokenId**
-> GetTokenIdResponse GetTokenId(ctx, tokensymbol)
+# **TestnetGetTokenId**
+> GetTokenIdResponse TestnetGetTokenId(ctx, tokensymbol)
 Returns the tokenId representing a token
 
 Translates a token symbol to a tokenId if a token exists with that symbol on the network 
@@ -156,8 +156,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetTokenMetadataOfIssuance**
-> GetTokenMetadataResponse GetTokenMetadataOfIssuance(ctx, tokenid)
+# **TestnetGetTokenMetadataOfIssuance**
+> GetTokenMetadataResponse TestnetGetTokenMetadataOfIssuance(ctx, tokenid)
 Get Issuance Metadata of Token
 
 Returns the metadata associated with a token at time of issuance. 
@@ -184,8 +184,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetTokenMetadataOfUtxo**
-> GetTokenMetadataResponse GetTokenMetadataOfUtxo(ctx, tokenid, utxo)
+# **TestnetGetTokenMetadataOfUtxo**
+> GetTokenMetadataResponse TestnetGetTokenMetadataOfUtxo(ctx, tokenid, utxo)
 Get UTXO Metadata of Token
 
 Returns the metadata associated with a token for that specific utxo instead of the issuance transaction. 
@@ -213,8 +213,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetTransactionInfo**
-> GetTransactionInfoResponse GetTransactionInfo(ctx, txid)
+# **TestnetGetTransactionInfo**
+> GetTransactionInfoResponse TestnetGetTransactionInfo(ctx, txid)
 Information On an NTP1 Transaction
 
 Returns detailed information regarding an NTP1 transaction. 
@@ -241,8 +241,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **IssueToken**
-> IssueTokenResponse IssueToken(ctx, body)
+# **TestnetIssueToken**
+> IssueTokenResponse TestnetIssueToken(ctx, body)
 Builds a transaction that issues a new NTP1 Token
 
 Builds an unsigned raw transaction that issues a new NTP1 token on the Neblio blockchain. 
@@ -269,8 +269,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **SendToken**
-> SendTokenResponse SendToken(ctx, body)
+# **TestnetSendToken**
+> SendTokenResponse TestnetSendToken(ctx, body)
 Builds a transaction that sends an NTP1 Token
 
 Builds an unsigned raw transaction that sends an NTP1 token on the Neblio blockchain. 

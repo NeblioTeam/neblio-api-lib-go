@@ -2,9 +2,9 @@
 swagger: "2.0"
 info:
   description: "APIs for Interacting with NTP1 Tokens & The Neblio Blockchain"
-  version: "1.0.0"
+  version: "1.1.1"
   title: "Neblio REST API Suite"
-host: "ntp1node.nebl.io:1443"
+host: "ntp1node.nebl.io"
 basePath: "/"
 schemes:
 - "https"
@@ -92,13 +92,39 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
+  /ntp1/transactioninfo/{txid}:
+    get:
+      tags:
+      - "NTP1"
+      summary: "Information On an NTP1 Transaction"
+      description: "Returns detailed information regarding an NTP1 transaction.\n"
+      operationId: "getTransactionInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "txid"
+        in: "path"
+        description: "Neblio txid to get information on."
+        required: true
+        type: "string"
+        x-exportParamName: "Txid"
+      responses:
+        200:
+          description: "An object represending this transaction"
+          schema:
+            $ref: "#/definitions/getTransactionInfoResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
   /ntp1/tokenmetadata/{tokenid}:
     get:
       tags:
       - "NTP1"
       summary: "Get Issuance Metadata of Token"
-      description: "Returns the metadata associated with a token at time of issuance.\
-        \ \n"
+      description: "Returns the metadata associated with a token at time of issuance.\n"
       operationId: "getTokenMetadataOfIssuance"
       consumes:
       - "application/json"
@@ -269,6 +295,321 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
+  /testnet/ntp1/tokenid/{tokensymbol}:
+    get:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Returns the tokenId representing a token"
+      description: "Translates a token symbol to a tokenId if a token exists with\
+        \ that symbol on the network\n"
+      operationId: "testnet_getTokenId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tokensymbol"
+        in: "path"
+        description: "Token symbol"
+        required: true
+        type: "string"
+        x-exportParamName: "Tokensymbol"
+      responses:
+        200:
+          description: "Object containing the token symbol and ID, if token symbol\
+            \ does not exist on network, empty object is returned."
+          schema:
+            $ref: "#/definitions/getTokenIdResponse"
+  /testnet/ntp1/broadcast:
+    post:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Broadcasts a signed raw transaction to the network"
+      description: "Broadcasts a signed raw transaction to the network. If successful\
+        \ returns the txid of the broadcast trasnaction.\n"
+      operationId: "testnet_broadcastTx"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object representing a transaction to broadcast"
+        required: true
+        schema:
+          $ref: "#/definitions/broadcastTxRequest"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "An object containing the TXID if the broadcast was successful"
+          schema:
+            $ref: "#/definitions/broadcastTxResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/addressinfo/{address}:
+    get:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Information On a Neblio Address"
+      description: "Returns both NEBL and NTP1 token UTXOs held at the given address.\n"
+      operationId: "testnet_getAddressInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Neblio Address to get information on."
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "An object with an array of UTXOs for this address"
+          schema:
+            $ref: "#/definitions/getAddressInfoResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/transactioninfo/{txid}:
+    get:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Information On an NTP1 Transaction"
+      description: "Returns detailed information regarding an NTP1 transaction.\n"
+      operationId: "testnet_getTransactionInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "txid"
+        in: "path"
+        description: "Neblio txid to get information on."
+        required: true
+        type: "string"
+        x-exportParamName: "Txid"
+      responses:
+        200:
+          description: "An object represending this transaction"
+          schema:
+            $ref: "#/definitions/getTransactionInfoResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/tokenmetadata/{tokenid}:
+    get:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Get Issuance Metadata of Token"
+      description: "Returns the metadata associated with a token at time of issuance.\n"
+      operationId: "testnet_getTokenMetadataOfIssuance"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tokenid"
+        in: "path"
+        description: "TokenId to request metadata for"
+        required: true
+        type: "string"
+        x-exportParamName: "Tokenid"
+      responses:
+        200:
+          description: "An object containing the metadata of a token at issuance"
+          schema:
+            $ref: "#/definitions/getTokenMetadataResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/tokenmetadata/{tokenid}/{utxo}:
+    get:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Get UTXO Metadata of Token"
+      description: "Returns the metadata associated with a token for that specific\
+        \ utxo instead of the issuance transaction.\n"
+      operationId: "testnet_getTokenMetadataOfUtxo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tokenid"
+        in: "path"
+        description: "TokenId to request metadata for"
+        required: true
+        type: "string"
+        x-exportParamName: "Tokenid"
+      - name: "utxo"
+        in: "path"
+        description: "Specific UTXO to request metadata for"
+        required: true
+        type: "string"
+        x-exportParamName: "Utxo"
+      responses:
+        200:
+          description: "An object containing the metadata of a token for a UTXO"
+          schema:
+            $ref: "#/definitions/getTokenMetadataResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/stakeholders/{tokenid}:
+    get:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Get Addresses Holding a Token"
+      description: "Returns the the the addresses holding a token and how many tokens\
+        \ are held\n"
+      operationId: "testnet_getTokenHolders"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tokenid"
+        in: "path"
+        description: "TokenId to request metadata for"
+        required: true
+        type: "string"
+        x-exportParamName: "Tokenid"
+      responses:
+        200:
+          description: "An object containing all of the addresses holding a token"
+          schema:
+            $ref: "#/definitions/getTokenHoldersResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/issue:
+    post:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Builds a transaction that issues a new NTP1 Token"
+      description: "Builds an unsigned raw transaction that issues a new NTP1 token\
+        \ on the Neblio blockchain.\n"
+      operationId: "testnet_issueToken"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object representing the token to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/issueTokenRequest"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "An object representing the token created"
+          schema:
+            $ref: "#/definitions/issueTokenResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/sendtoken:
+    post:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Builds a transaction that sends an NTP1 Token"
+      description: "Builds an unsigned raw transaction that sends an NTP1 token on\
+        \ the Neblio blockchain.\n"
+      operationId: "testnet_sendToken"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object representing the token to be sent"
+        required: true
+        schema:
+          $ref: "#/definitions/sendTokenRequest"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "An object representing the tx to send the token"
+          schema:
+            $ref: "#/definitions/sendTokenResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ntp1/burntoken:
+    post:
+      tags:
+      - "Testnet-NTP1"
+      summary: "Builds a transaction that burns an NTP1 Token"
+      description: "Builds an unsigned raw transaction that burns an NTP1 token on\
+        \ the Neblio blockchain.\n"
+      operationId: "testnet_burnToken"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object representing the token to be burned"
+        required: true
+        schema:
+          $ref: "#/definitions/burnTokenRequest"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "An object representing the tx to burn the token"
+          schema:
+            $ref: "#/definitions/burnTokenResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/faucet:
+    get:
+      tags:
+      - "Testnet-Faucet"
+      summary: "Withdraws testnet NEBL to the specified address"
+      description: "Withdraw testnet NEBL to your Neblio Testnet address. By default\
+        \ amount is 1500000000 or 15 NEBL and has a max of 50 NEBL. Only 2 withdrawals\
+        \ allowed per 24 hour period.\n"
+      operationId: "testnet_getFaucet"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "query"
+        description: "Your Neblio Testnet Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      - name: "amount"
+        in: "query"
+        description: "Amount of NEBL to withdrawal in satoshis"
+        required: false
+        type: "number"
+        x-exportParamName: "Amount"
+      responses:
+        200:
+          description: "Object containing the transaction ID of the withdrawal."
+          schema:
+            $ref: "#/definitions/getFaucetResponse"
 definitions:
   getTokenIdResponse:
     type: "object"
@@ -352,6 +693,176 @@ definitions:
         used: true
         value: 5.962133916683182377482808078639209270477294921875
         blockheight: 6.02745618307040320615897144307382404804229736328125
+  getTransactionInfoResponse:
+    type: "object"
+    properties:
+      hex:
+        type: "string"
+        description: "Transaction in raw hex"
+      txid:
+        type: "string"
+        description: "TXID of transaction"
+      version:
+        type: "number"
+        description: "Transaction version"
+      locktime:
+        type: "number"
+        description: "Transaction locktime"
+      vin:
+        type: "array"
+        description: "Array of transaction inputs"
+        items:
+          $ref: "#/definitions/getTransactionInfoResponse_vin"
+      vout:
+        type: "array"
+        description: "Array of transaction outputs"
+        items:
+          $ref: "#/definitions/getTransactionInfoResponse_vout"
+      blocktime:
+        type: "number"
+        description: "Block time of this transaction"
+      blockheight:
+        type: "number"
+        description: "Block height of this transaction"
+      totalsent:
+        type: "number"
+        description: "Total NEBL sent in this transaction in satoshis"
+      fee:
+        type: "number"
+        description: "Total NEBL used as fee for this transcation in satoshis"
+      blockhash:
+        type: "string"
+        description: "Hash of the block this transaction is in"
+      time:
+        type: "number"
+        description: "Transaction time"
+      confirmations:
+        type: "number"
+        description: "Number of transaction confirmations"
+    example:
+      locktime: 6.02745618307040320615897144307382404804229736328125
+      fee: 6.8468526983526398765889098285697400569915771484375
+      txid: "txid"
+      confirmations: 1.173074250955943309548956676735542714595794677734375
+      version: 0.80082819046101150206595775671303272247314453125
+      vout:
+      - scriptPubKey:
+          addresses:
+          - "addresses"
+          - "addresses"
+          asm: "asm"
+          hex: "hex"
+          type: "type"
+          reqSigs: 5.63737665663332876420099637471139430999755859375
+        usedBlockheight: 7.3862819483858839220147274318151175975799560546875
+        usedTxid: "usedTxid"
+        tokens:
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        used: true
+        value: 3.61607674925191080461672754609026014804840087890625
+        n: 2.027123023002321833274663731572218239307403564453125
+        blockheight: 4.1456080298839363962315474054776132106781005859375
+      - scriptPubKey:
+          addresses:
+          - "addresses"
+          - "addresses"
+          asm: "asm"
+          hex: "hex"
+          type: "type"
+          reqSigs: 5.63737665663332876420099637471139430999755859375
+        usedBlockheight: 7.3862819483858839220147274318151175975799560546875
+        usedTxid: "usedTxid"
+        tokens:
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        used: true
+        value: 3.61607674925191080461672754609026014804840087890625
+        n: 2.027123023002321833274663731572218239307403564453125
+        blockheight: 4.1456080298839363962315474054776132106781005859375
+      blockheight: 1.024645700144157789424070870154537260532379150390625
+      blockhash: "blockhash"
+      blocktime: 1.231513536777255612975068288506008684635162353515625
+      totalsent: 1.489415909854170383397331534069962799549102783203125
+      hex: "hex"
+      vin:
+      - sequence: 5.962133916683182377482808078639209270477294921875
+        previousOutput:
+          addresses:
+          - "addresses"
+          - "addresses"
+          asm: "asm"
+          hex: "hex"
+          type: "type"
+          reqSigs: 5.63737665663332876420099637471139430999755859375
+        scriptSig:
+          asm: "asm"
+          hex: "hex"
+        txid: "txid"
+        tokens:
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        value: 9.301444243932575517419536481611430644989013671875
+        vout: 1.46581298050294517310021547018550336360931396484375
+      - sequence: 5.962133916683182377482808078639209270477294921875
+        previousOutput:
+          addresses:
+          - "addresses"
+          - "addresses"
+          asm: "asm"
+          hex: "hex"
+          type: "type"
+          reqSigs: 5.63737665663332876420099637471139430999755859375
+        scriptSig:
+          asm: "asm"
+          hex: "hex"
+        txid: "txid"
+        tokens:
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        - amount: 2.3021358869347654518833223846741020679473876953125
+          aggregationPolicy: "aggregationPolicy"
+          tokenId: "tokenId"
+          lockStatus: true
+          issueTxid: "issueTxid"
+          divisibility: 7.061401241503109105224211816675961017608642578125
+        value: 9.301444243932575517419536481611430644989013671875
+        vout: 1.46581298050294517310021547018550336360931396484375
+      time: 7.4577447736837658709418974467553198337554931640625
   getTokenMetadataResponse:
     type: "object"
     properties:
@@ -598,6 +1109,18 @@ definitions:
       ntp1OutputIndexes:
       - 0.80082819046101150206595775671303272247314453125
       - 0.80082819046101150206595775671303272247314453125
+  getFaucetResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        description: "Whether the withdrawal was successful"
+      data:
+        $ref: "#/definitions/getFaucetResponse_data"
+    example:
+      data:
+        txId: "txId"
+      status: "status"
   Error:
     type: "object"
     properties:
@@ -685,6 +1208,168 @@ definitions:
       used: true
       value: 5.962133916683182377482808078639209270477294921875
       blockheight: 6.02745618307040320615897144307382404804229736328125
+  getTransactionInfoResponse_scriptSig:
+    properties:
+      asm:
+        type: "string"
+      hex:
+        type: "string"
+    example:
+      asm: "asm"
+      hex: "hex"
+  getTransactionInfoResponse_previousOutput:
+    properties:
+      asm:
+        type: "string"
+      hex:
+        type: "string"
+      reqSigs:
+        type: "number"
+      type:
+        type: "string"
+      addresses:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      addresses:
+      - "addresses"
+      - "addresses"
+      asm: "asm"
+      hex: "hex"
+      type: "type"
+      reqSigs: 5.63737665663332876420099637471139430999755859375
+  getTransactionInfoResponse_tokens:
+    properties:
+      tokenId:
+        type: "string"
+        description: "ID of the token"
+      amount:
+        type: "number"
+        description: "Number of tokens"
+      issueTxid:
+        type: "string"
+        description: "TXID the token was issued in"
+      divisibility:
+        type: "number"
+        description: "Decimal places the token is divisible to"
+      lockStatus:
+        type: "boolean"
+        description: "Whether issuance of more tokens is locked"
+      aggregationPolicy:
+        type: "string"
+        description: "Whether the tokens are aggregatable"
+    example:
+      amount: 2.3021358869347654518833223846741020679473876953125
+      aggregationPolicy: "aggregationPolicy"
+      tokenId: "tokenId"
+      lockStatus: true
+      issueTxid: "issueTxid"
+      divisibility: 7.061401241503109105224211816675961017608642578125
+  getTransactionInfoResponse_vin:
+    properties:
+      txid:
+        type: "string"
+        description: "TXID of the input"
+      vout:
+        type: "number"
+        description: "output index"
+      scriptSig:
+        $ref: "#/definitions/getTransactionInfoResponse_scriptSig"
+      sequence:
+        type: "number"
+      previousOutput:
+        $ref: "#/definitions/getTransactionInfoResponse_previousOutput"
+      tokens:
+        type: "array"
+        items:
+          $ref: "#/definitions/getTransactionInfoResponse_tokens"
+      value:
+        type: "number"
+        description: "Value of input in NEBL satoshi"
+    example:
+      sequence: 5.962133916683182377482808078639209270477294921875
+      previousOutput:
+        addresses:
+        - "addresses"
+        - "addresses"
+        asm: "asm"
+        hex: "hex"
+        type: "type"
+        reqSigs: 5.63737665663332876420099637471139430999755859375
+      scriptSig:
+        asm: "asm"
+        hex: "hex"
+      txid: "txid"
+      tokens:
+      - amount: 2.3021358869347654518833223846741020679473876953125
+        aggregationPolicy: "aggregationPolicy"
+        tokenId: "tokenId"
+        lockStatus: true
+        issueTxid: "issueTxid"
+        divisibility: 7.061401241503109105224211816675961017608642578125
+      - amount: 2.3021358869347654518833223846741020679473876953125
+        aggregationPolicy: "aggregationPolicy"
+        tokenId: "tokenId"
+        lockStatus: true
+        issueTxid: "issueTxid"
+        divisibility: 7.061401241503109105224211816675961017608642578125
+      value: 9.301444243932575517419536481611430644989013671875
+      vout: 1.46581298050294517310021547018550336360931396484375
+  getTransactionInfoResponse_vout:
+    properties:
+      value:
+        type: "number"
+        description: "Value of the output in NEBL satoshi"
+      n:
+        type: "number"
+        description: "Output index"
+      scriptPubKey:
+        $ref: "#/definitions/getTransactionInfoResponse_previousOutput"
+      tokens:
+        type: "array"
+        items:
+          $ref: "#/definitions/getTransactionInfoResponse_tokens"
+      used:
+        type: "boolean"
+        description: "Whether this output has now been used"
+      blockheight:
+        type: "number"
+        description: "Blockheight of this transaction"
+      usedBlockheight:
+        type: "number"
+        description: "Blockheight this output was used in"
+      usedTxid:
+        type: "string"
+        description: "TXID this output was used in"
+    example:
+      scriptPubKey:
+        addresses:
+        - "addresses"
+        - "addresses"
+        asm: "asm"
+        hex: "hex"
+        type: "type"
+        reqSigs: 5.63737665663332876420099637471139430999755859375
+      usedBlockheight: 7.3862819483858839220147274318151175975799560546875
+      usedTxid: "usedTxid"
+      tokens:
+      - amount: 2.3021358869347654518833223846741020679473876953125
+        aggregationPolicy: "aggregationPolicy"
+        tokenId: "tokenId"
+        lockStatus: true
+        issueTxid: "issueTxid"
+        divisibility: 7.061401241503109105224211816675961017608642578125
+      - amount: 2.3021358869347654518833223846741020679473876953125
+        aggregationPolicy: "aggregationPolicy"
+        tokenId: "tokenId"
+        lockStatus: true
+        issueTxid: "issueTxid"
+        divisibility: 7.061401241503109105224211816675961017608642578125
+      used: true
+      value: 3.61607674925191080461672754609026014804840087890625
+      n: 2.027123023002321833274663731572218239307403564453125
+      blockheight: 4.1456080298839363962315474054776132106781005859375
   getTokenMetadataResponse_metadataOfIssuance_data_userData_meta:
     properties:
       key:
@@ -876,3 +1561,10 @@ definitions:
       tokenId:
         type: "string"
         description: "Unique token id we are burning"
+  getFaucetResponse_data:
+    properties:
+      txId:
+        type: "string"
+        description: "TXID of a successful withdrawal"
+    example:
+      txId: "txId"

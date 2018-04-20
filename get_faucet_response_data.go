@@ -9,8 +9,8 @@
 
 package swagger
 
-type BroadcastTxRequest struct {
+type GetFaucetResponseData struct {
 
-	// Signed raw tx hex to broadcast
-	TxHex string `json:"txHex"`
+	// TXID of a successful withdrawal
+	TxId string `json:"txId,omitempty"`
 }

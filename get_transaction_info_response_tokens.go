@@ -9,23 +9,23 @@
 
 package swagger
 
-type GetAddressInfoResponseTokens struct {
+type GetTransactionInfoResponseTokens struct {
 
-	// Unique NTP1 identifier for this token
+	// ID of the token
 	TokenId string `json:"tokenId,omitempty"`
 
-	// Number of Tokens
+	// Number of tokens
 	Amount float32 `json:"amount,omitempty"`
 
-	// TXID the token originally was issued in
+	// TXID the token was issued in
 	IssueTxid string `json:"issueTxid,omitempty"`
 
 	// Decimal places the token is divisible to
 	Divisibility float32 `json:"divisibility,omitempty"`
 
-	// Whether the token is locked, preventing more from being issued
+	// Whether issuance of more tokens is locked
 	LockStatus bool `json:"lockStatus,omitempty"`
 
-	// Whether the tokens can be aggregated together
+	// Whether the tokens are aggregatable
 	AggregationPolicy string `json:"aggregationPolicy,omitempty"`
 }

@@ -24,15 +24,15 @@ var (
 	_ context.Context
 )
 
-type NTP1ApiService service
+type TestnetNTP1ApiService service
 
 
-/* NTP1ApiService Broadcasts a signed raw transaction to the network
+/* TestnetNTP1ApiService Broadcasts a signed raw transaction to the network
  Broadcasts a signed raw transaction to the network. If successful returns the txid of the broadcast trasnaction. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param body Object representing a transaction to broadcast
  @return BroadcastTxResponse*/
-func (a *NTP1ApiService) BroadcastTx(ctx context.Context, body BroadcastTxRequest) (BroadcastTxResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetBroadcastTx(ctx context.Context, body BroadcastTxRequest) (BroadcastTxResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody interface{}
@@ -42,7 +42,7 @@ func (a *NTP1ApiService) BroadcastTx(ctx context.Context, body BroadcastTxReques
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/broadcast"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/broadcast"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -93,12 +93,12 @@ func (a *NTP1ApiService) BroadcastTx(ctx context.Context, body BroadcastTxReques
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Builds a transaction that burns an NTP1 Token
+/* TestnetNTP1ApiService Builds a transaction that burns an NTP1 Token
  Builds an unsigned raw transaction that burns an NTP1 token on the Neblio blockchain. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param body Object representing the token to be burned
  @return BurnTokenResponse*/
-func (a *NTP1ApiService) BurnToken(ctx context.Context, body BurnTokenRequest) (BurnTokenResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetBurnToken(ctx context.Context, body BurnTokenRequest) (BurnTokenResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody interface{}
@@ -108,7 +108,7 @@ func (a *NTP1ApiService) BurnToken(ctx context.Context, body BurnTokenRequest) (
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/burntoken"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/burntoken"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -159,12 +159,12 @@ func (a *NTP1ApiService) BurnToken(ctx context.Context, body BurnTokenRequest) (
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Information On a Neblio Address
+/* TestnetNTP1ApiService Information On a Neblio Address
  Returns both NEBL and NTP1 token UTXOs held at the given address. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param address Neblio Address to get information on.
  @return GetAddressInfoResponse*/
-func (a *NTP1ApiService) GetAddressInfo(ctx context.Context, address string) (GetAddressInfoResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetGetAddressInfo(ctx context.Context, address string) (GetAddressInfoResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
@@ -174,7 +174,7 @@ func (a *NTP1ApiService) GetAddressInfo(ctx context.Context, address string) (Ge
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/addressinfo/{address}"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/addressinfo/{address}"
 	localVarPath = strings.Replace(localVarPath, "{"+"address"+"}", fmt.Sprintf("%v", address), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -224,12 +224,12 @@ func (a *NTP1ApiService) GetAddressInfo(ctx context.Context, address string) (Ge
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Get Addresses Holding a Token
+/* TestnetNTP1ApiService Get Addresses Holding a Token
  Returns the the the addresses holding a token and how many tokens are held 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param tokenid TokenId to request metadata for
  @return GetTokenHoldersResponse*/
-func (a *NTP1ApiService) GetTokenHolders(ctx context.Context, tokenid string) (GetTokenHoldersResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetGetTokenHolders(ctx context.Context, tokenid string) (GetTokenHoldersResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
@@ -239,7 +239,7 @@ func (a *NTP1ApiService) GetTokenHolders(ctx context.Context, tokenid string) (G
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/stakeholders/{tokenid}"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/stakeholders/{tokenid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenid"+"}", fmt.Sprintf("%v", tokenid), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -289,12 +289,12 @@ func (a *NTP1ApiService) GetTokenHolders(ctx context.Context, tokenid string) (G
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Returns the tokenId representing a token
+/* TestnetNTP1ApiService Returns the tokenId representing a token
  Translates a token symbol to a tokenId if a token exists with that symbol on the network 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param tokensymbol Token symbol
  @return GetTokenIdResponse*/
-func (a *NTP1ApiService) GetTokenId(ctx context.Context, tokensymbol string) (GetTokenIdResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetGetTokenId(ctx context.Context, tokensymbol string) (GetTokenIdResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
@@ -304,7 +304,7 @@ func (a *NTP1ApiService) GetTokenId(ctx context.Context, tokensymbol string) (Ge
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/tokenid/{tokensymbol}"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/tokenid/{tokensymbol}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokensymbol"+"}", fmt.Sprintf("%v", tokensymbol), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -354,12 +354,12 @@ func (a *NTP1ApiService) GetTokenId(ctx context.Context, tokensymbol string) (Ge
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Get Issuance Metadata of Token
+/* TestnetNTP1ApiService Get Issuance Metadata of Token
  Returns the metadata associated with a token at time of issuance. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param tokenid TokenId to request metadata for
  @return GetTokenMetadataResponse*/
-func (a *NTP1ApiService) GetTokenMetadataOfIssuance(ctx context.Context, tokenid string) (GetTokenMetadataResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetGetTokenMetadataOfIssuance(ctx context.Context, tokenid string) (GetTokenMetadataResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
@@ -369,7 +369,7 @@ func (a *NTP1ApiService) GetTokenMetadataOfIssuance(ctx context.Context, tokenid
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/tokenmetadata/{tokenid}"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/tokenmetadata/{tokenid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenid"+"}", fmt.Sprintf("%v", tokenid), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -419,13 +419,13 @@ func (a *NTP1ApiService) GetTokenMetadataOfIssuance(ctx context.Context, tokenid
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Get UTXO Metadata of Token
+/* TestnetNTP1ApiService Get UTXO Metadata of Token
  Returns the metadata associated with a token for that specific utxo instead of the issuance transaction. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param tokenid TokenId to request metadata for
  @param utxo Specific UTXO to request metadata for
  @return GetTokenMetadataResponse*/
-func (a *NTP1ApiService) GetTokenMetadataOfUtxo(ctx context.Context, tokenid string, utxo string) (GetTokenMetadataResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetGetTokenMetadataOfUtxo(ctx context.Context, tokenid string, utxo string) (GetTokenMetadataResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
@@ -435,7 +435,7 @@ func (a *NTP1ApiService) GetTokenMetadataOfUtxo(ctx context.Context, tokenid str
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/tokenmetadata/{tokenid}/{utxo}"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/tokenmetadata/{tokenid}/{utxo}"
 	localVarPath = strings.Replace(localVarPath, "{"+"tokenid"+"}", fmt.Sprintf("%v", tokenid), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"utxo"+"}", fmt.Sprintf("%v", utxo), -1)
 
@@ -486,12 +486,12 @@ func (a *NTP1ApiService) GetTokenMetadataOfUtxo(ctx context.Context, tokenid str
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Information On an NTP1 Transaction
+/* TestnetNTP1ApiService Information On an NTP1 Transaction
  Returns detailed information regarding an NTP1 transaction. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param txid Neblio txid to get information on.
  @return GetTransactionInfoResponse*/
-func (a *NTP1ApiService) GetTransactionInfo(ctx context.Context, txid string) (GetTransactionInfoResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetGetTransactionInfo(ctx context.Context, txid string) (GetTransactionInfoResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
@@ -501,7 +501,7 @@ func (a *NTP1ApiService) GetTransactionInfo(ctx context.Context, txid string) (G
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/transactioninfo/{txid}"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/transactioninfo/{txid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"txid"+"}", fmt.Sprintf("%v", txid), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -551,12 +551,12 @@ func (a *NTP1ApiService) GetTransactionInfo(ctx context.Context, txid string) (G
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Builds a transaction that issues a new NTP1 Token
+/* TestnetNTP1ApiService Builds a transaction that issues a new NTP1 Token
  Builds an unsigned raw transaction that issues a new NTP1 token on the Neblio blockchain. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param body Object representing the token to be created
  @return IssueTokenResponse*/
-func (a *NTP1ApiService) IssueToken(ctx context.Context, body IssueTokenRequest) (IssueTokenResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetIssueToken(ctx context.Context, body IssueTokenRequest) (IssueTokenResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody interface{}
@@ -566,7 +566,7 @@ func (a *NTP1ApiService) IssueToken(ctx context.Context, body IssueTokenRequest)
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/issue"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/issue"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -617,12 +617,12 @@ func (a *NTP1ApiService) IssueToken(ctx context.Context, body IssueTokenRequest)
 	return successPayload, localVarHttpResponse, err
 }
 
-/* NTP1ApiService Builds a transaction that sends an NTP1 Token
+/* TestnetNTP1ApiService Builds a transaction that sends an NTP1 Token
  Builds an unsigned raw transaction that sends an NTP1 token on the Neblio blockchain. 
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param body Object representing the token to be sent
  @return SendTokenResponse*/
-func (a *NTP1ApiService) SendToken(ctx context.Context, body SendTokenRequest) (SendTokenResponse,  *http.Response, error) {
+func (a *TestnetNTP1ApiService) TestnetSendToken(ctx context.Context, body SendTokenRequest) (SendTokenResponse,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody interface{}
@@ -632,7 +632,7 @@ func (a *NTP1ApiService) SendToken(ctx context.Context, body SendTokenRequest) (
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/ntp1/sendtoken"
+	localVarPath := a.client.cfg.BasePath + "/testnet/ntp1/sendtoken"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
