@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "APIs for Interacting with NTP1 Tokens & The Neblio Blockchain"
-  version: "1.1.1"
+  version: "1.2.0"
   title: "Neblio REST API Suite"
 host: "ntp1node.nebl.io"
 basePath: "/"
@@ -295,6 +295,684 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
+  /ins/tx/send:
+    post:
+      tags:
+      - "Insight"
+      summary: "Broadcasts a signed raw transaction to the network (not NTP1 specific)"
+      description: "Broadcasts a signed raw transaction to the network. If successful\
+        \ returns the txid of the broadcast trasnaction.\n"
+      operationId: "sendTx"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object representing a transaction to broadcast"
+        required: true
+        schema:
+          $ref: "#/definitions/sendTxRequest"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "An object containing the TXID if the broadcast was successful"
+          schema:
+            $ref: "#/definitions/broadcastTxResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /ins/block/{blockhash}:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns information regarding a Neblio block"
+      description: "Returns blockchain data for a given block based upon the block\
+        \ hash"
+      operationId: "getBlock"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "blockhash"
+        in: "path"
+        description: "Block Hash"
+        required: true
+        type: "string"
+        x-exportParamName: "Blockhash"
+      responses:
+        200:
+          description: "Object containing all information on a blockchain block"
+          schema:
+            $ref: "#/definitions/getBlockResponse"
+  /ins/block-index/{blockindex}:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns block hash of block"
+      description: "Returns the block hash of a block at a given block index"
+      operationId: "getBlockIndex"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "blockindex"
+        in: "path"
+        description: "Block Index"
+        required: true
+        type: "number"
+        x-exportParamName: "Blockindex"
+      responses:
+        200:
+          description: "Object containing block hash"
+          schema:
+            $ref: "#/definitions/getBlockIndexResponse"
+  /ins/tx/{txid}:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns transaction object"
+      description: "Returns NEBL transaction object representing a NEBL transaction"
+      operationId: "getTx"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "txid"
+        in: "path"
+        description: "Transaction ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Txid"
+      responses:
+        200:
+          description: "Object containing transaction info"
+          schema:
+            $ref: "#/definitions/getTxResponse"
+  /ins/rawtx/{txid}:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns raw transaction hex"
+      description: "Returns raw transaction hex representing a NEBL transaction"
+      operationId: "getRawTx"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "txid"
+        in: "path"
+        description: "Transaction ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Txid"
+      responses:
+        200:
+          description: "Object containing raw hex of transaction"
+          schema:
+            $ref: "#/definitions/getRawTxResponse"
+  /ins/addr/{address}:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns address object"
+      description: "Returns NEBL address object containing information on a specific\
+        \ address"
+      operationId: "getAddress"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Object containing address info"
+          schema:
+            $ref: "#/definitions/getAddressResponse"
+  /ins/addr/{address}/balance:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns address balance in sats"
+      description: "Returns NEBL address balance in satoshis"
+      operationId: "getAddressBalance"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Address balance"
+          schema:
+            $ref: "#/definitions/getAddressBalanceResponse"
+  /ins/addr/{address}/unconfirmedBalance:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns address unconfirmed balance in sats"
+      description: "Returns NEBL address unconfirmed balance in satoshis"
+      operationId: "getAddressUnconfirmedBalance"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Address unconfirmed balance"
+          schema:
+            $ref: "#/definitions/getAddressUnconfirmedBalanceResponse"
+  /ins/addr/{address}/totalReceived:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns total received by address in sats"
+      description: "Returns total NEBL received by address in satoshis"
+      operationId: "getAddressTotalReceived"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Total received by address"
+          schema:
+            $ref: "#/definitions/getAddressTotalReceivedResponse"
+  /ins/addr/{address}/utxo:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns all UTXOs at a given address"
+      description: "Returns information on each Unspent Transaction Output contained\
+        \ at an address"
+      operationId: "getAddressUtxos"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "UTXOs at an address"
+          schema:
+            $ref: "#/definitions/getAddressUtxosResponse"
+  /ins/addr/{address}/totalSent:
+    get:
+      tags:
+      - "Insight"
+      summary: "Returns total sent by address in sats"
+      description: "Returns total NEBL sent by address in satoshis"
+      operationId: "getAddressTotalSent"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Total sent by address"
+          schema:
+            $ref: "#/definitions/getAddressTotalSentResponse"
+  /ins/txs:
+    get:
+      tags:
+      - "Insight"
+      summary: "Get transactions by block or address"
+      description: "Returns all transactions by block or address"
+      operationId: "getTxs"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "query"
+        description: "Address"
+        required: false
+        type: "string"
+        x-exportParamName: "Address"
+      - name: "block"
+        in: "query"
+        description: "Block Hash"
+        required: false
+        type: "string"
+        x-exportParamName: "Block"
+      - name: "page"
+        in: "query"
+        description: "Page number to display"
+        required: false
+        type: "number"
+        x-exportParamName: "Page"
+      responses:
+        200:
+          description: "List of transactions"
+          schema:
+            $ref: "#/definitions/getTxsResponse"
+  /ins/sync:
+    get:
+      tags:
+      - "Insight"
+      summary: "Get node sync status"
+      description: "Returns information on the node's sync progress"
+      operationId: "getSync"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Sync Info"
+          schema:
+            $ref: "#/definitions/getSyncResponse"
+  /ins/status:
+    get:
+      tags:
+      - "Insight"
+      summary: "Utility API for calling several blockchain node functions"
+      description: "tility API for calling several blockchain node functions - getInfo,\
+        \ getDifficulty, getBestBlockHash, getLastBlockHash"
+      operationId: "getStatus"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "q"
+        in: "query"
+        description: "Function to call, getInfo, getDifficulty, getBestBlockHash,\
+          \ or getLastBlockHash"
+        required: false
+        type: "string"
+        x-exportParamName: "Q"
+      responses:
+        200:
+          description: "Function Response"
+          schema:
+            $ref: "#/definitions/getStatusResponse"
+  /testnet/ins/tx/send:
+    post:
+      tags:
+      - "Testnet-Insight"
+      summary: "Broadcasts a signed raw transaction to the network (not NTP1 specific)"
+      description: "Broadcasts a signed raw transaction to the network. If successful\
+        \ returns the txid of the broadcast trasnaction.\n"
+      operationId: "testnet_sendTx"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Object representing a transaction to broadcast"
+        required: true
+        schema:
+          $ref: "#/definitions/sendTxRequest"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "An object containing the TXID if the broadcast was successful"
+          schema:
+            $ref: "#/definitions/broadcastTxResponse"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /testnet/ins/block/{blockhash}:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns information regarding a Neblio block"
+      description: "Returns blockchain data for a given block based upon the block\
+        \ hash"
+      operationId: "testnet_getBlock"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "blockhash"
+        in: "path"
+        description: "Block Hash"
+        required: true
+        type: "string"
+        x-exportParamName: "Blockhash"
+      responses:
+        200:
+          description: "Object containing all information on a blockchain block"
+          schema:
+            $ref: "#/definitions/getBlockResponse"
+  /testnet/ins/block-index/{blockindex}:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns block hash of block"
+      description: "Returns the block hash of a block at a given block index"
+      operationId: "testnet_getBlockIndex"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "blockindex"
+        in: "path"
+        description: "Block Index"
+        required: true
+        type: "number"
+        x-exportParamName: "Blockindex"
+      responses:
+        200:
+          description: "Object containing block hash"
+          schema:
+            $ref: "#/definitions/getBlockIndexResponse"
+  /testnet/ins/tx/{txid}:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns transaction object"
+      description: "Returns NEBL transaction object representing a NEBL transaction"
+      operationId: "testnet_getTx"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "txid"
+        in: "path"
+        description: "Transaction ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Txid"
+      responses:
+        200:
+          description: "Object containing transaction info"
+          schema:
+            $ref: "#/definitions/getTxResponse"
+  /testnet/ins/rawtx/{txid}:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns raw transaction hex"
+      description: "Returns raw transaction hex representing a NEBL transaction"
+      operationId: "testnet_getRawTx"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "txid"
+        in: "path"
+        description: "Transaction ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Txid"
+      responses:
+        200:
+          description: "Object containing raw hex of transaction"
+          schema:
+            $ref: "#/definitions/getRawTxResponse"
+  /testnet/ins/addr/{address}:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns address object"
+      description: "Returns NEBL address object containing information on a specific\
+        \ address"
+      operationId: "testnet_getAddress"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Object containing address info"
+          schema:
+            $ref: "#/definitions/getAddressResponse"
+  /testnet/ins/addr/{address}/balance:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns address balance in sats"
+      description: "Returns NEBL address balance in satoshis"
+      operationId: "testnet_getAddressBalance"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Address balance"
+          schema:
+            $ref: "#/definitions/getAddressBalanceResponse"
+  /testnet/ins/addr/{address}/unconfirmedBalance:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns address unconfirmed balance in sats"
+      description: "Returns NEBL address unconfirmed balance in satoshis"
+      operationId: "testnet_getAddressUnconfirmedBalance"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Address unconfirmed balance"
+          schema:
+            $ref: "#/definitions/getAddressUnconfirmedBalanceResponse"
+  /testnet/ins/addr/{address}/totalReceived:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns total received by address in sats"
+      description: "Returns total NEBL received by address in satoshis"
+      operationId: "testnet_getAddressTotalReceived"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Total received by address"
+          schema:
+            $ref: "#/definitions/getAddressTotalReceivedResponse"
+  /testnet/ins/addr/{address}/utxo:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns all UTXOs at a given address"
+      description: "Returns information on each Unspent Transaction Output contained\
+        \ at an address"
+      operationId: "testnet_getAddressUtxos"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "UTXOs at an address"
+          schema:
+            $ref: "#/definitions/getAddressUtxosResponse"
+  /testnet/ins/addr/{address}/totalSent:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Returns total sent by address in sats"
+      description: "Returns total NEBL sent by address in satoshis"
+      operationId: "testnet_getAddressTotalSent"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "path"
+        description: "Address"
+        required: true
+        type: "string"
+        x-exportParamName: "Address"
+      responses:
+        200:
+          description: "Total sent by address"
+          schema:
+            $ref: "#/definitions/getAddressTotalSentResponse"
+  /testnet/ins/txs:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Get transactions by block or address"
+      description: "Returns all transactions by block or address"
+      operationId: "testnet_getTxs"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "address"
+        in: "query"
+        description: "Address"
+        required: false
+        type: "string"
+        x-exportParamName: "Address"
+      - name: "block"
+        in: "query"
+        description: "Block Hash"
+        required: false
+        type: "string"
+        x-exportParamName: "Block"
+      - name: "page"
+        in: "query"
+        description: "Page number to display"
+        required: false
+        type: "number"
+        x-exportParamName: "Page"
+      responses:
+        200:
+          description: "List of transactions"
+          schema:
+            $ref: "#/definitions/getTxsResponse"
+  /testnet/ins/sync:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Get node sync status"
+      description: "Returns information on the node's sync progress"
+      operationId: "testnet_getSync"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Sync Info"
+          schema:
+            $ref: "#/definitions/getSyncResponse"
+  /testnet/ins/status:
+    get:
+      tags:
+      - "Testnet-Insight"
+      summary: "Utility API for calling several blockchain node functions"
+      description: "tility API for calling several blockchain node functions - getInfo,\
+        \ getDifficulty, getBestBlockHash, getLastBlockHash"
+      operationId: "testnet_getStatus"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "q"
+        in: "query"
+        description: "Function to call, getInfo, getDifficulty, getBestBlockHash,\
+          \ or getLastBlockHash"
+        required: false
+        type: "string"
+        x-exportParamName: "Q"
+      responses:
+        200:
+          description: "Function Response"
+          schema:
+            $ref: "#/definitions/getStatusResponse"
   /testnet/ntp1/tokenid/{tokensymbol}:
     get:
       tags:
@@ -999,6 +1677,8 @@ definitions:
       reissuable:
         type: "boolean"
         description: "whether the token should be reissuable"
+      flags:
+        $ref: "#/definitions/issueTokenRequest_flags"
       metadata:
         $ref: "#/definitions/issueTokenRequest_metadata"
   issueTokenResponse:
@@ -1029,10 +1709,17 @@ definitions:
         description: "Array of addresses to send the token from"
         items:
           type: "string"
+      sendutxo:
+        type: "array"
+        description: "Array of UTXOs to send the token from"
+        items:
+          type: "string"
       to:
         type: "array"
         items:
           $ref: "#/definitions/sendTokenRequest_to"
+      flags:
+        $ref: "#/definitions/issueTokenRequest_flags"
       metadata:
         $ref: "#/definitions/issueTokenRequest_metadata"
   sendTokenResponse:
@@ -1121,6 +1808,455 @@ definitions:
       data:
         txId: "txId"
       status: "status"
+  sendTxRequest:
+    type: "object"
+    properties:
+      txHex:
+        type: "string"
+        description: "Signed raw tx hex to broadcast"
+  getBlockResponse:
+    type: "object"
+    properties:
+      hash:
+        type: "string"
+        description: "Block hash"
+      confirmations:
+        type: "number"
+        description: "Number of confirmations block has"
+      size:
+        type: "number"
+        description: "Block size in bytes"
+      height:
+        type: "number"
+        description: "Block height"
+      version:
+        type: "number"
+        description: "Block version"
+      merkleroot:
+        type: "string"
+        description: "Merkleroot of block"
+      tx:
+        type: "array"
+        description: "Array of tx ids in the block"
+        items:
+          type: "string"
+      time:
+        type: "number"
+        description: "Block time relative to epoch"
+      nonce:
+        type: "number"
+        description: "Block nonce"
+      bits:
+        type: "string"
+        description: "Block bits"
+      difficulty:
+        type: "number"
+        description: "Block difficulty"
+      previousblockhash:
+        type: "string"
+        description: "Hash of the previous block on the chain"
+      nextblockhash:
+        type: "string"
+        description: "Hash of the next block on the chain"
+      reward:
+        type: "number"
+        description: "Number of NEBL awarded in this block"
+    example:
+      reward: 9.301444243932575517419536481611430644989013671875
+      tx:
+      - "tx"
+      - "tx"
+      previousblockhash: "previousblockhash"
+      bits: "bits"
+      confirmations: 0.80082819046101150206595775671303272247314453125
+      version: 5.962133916683182377482808078639209270477294921875
+      nonce: 2.3021358869347654518833223846741020679473876953125
+      nextblockhash: "nextblockhash"
+      difficulty: 7.061401241503109105224211816675961017608642578125
+      size: 6.02745618307040320615897144307382404804229736328125
+      merkleroot: "merkleroot"
+      time: 5.63737665663332876420099637471139430999755859375
+      hash: "hash"
+      height: 1.46581298050294517310021547018550336360931396484375
+  getBlockIndexResponse:
+    type: "object"
+    properties:
+      blockHash:
+        type: "string"
+        description: "Hash of the requested block"
+    example:
+      blockHash: "blockHash"
+  getTxResponse:
+    type: "object"
+    properties:
+      txid:
+        type: "string"
+        description: "TXID of transaction"
+      version:
+        type: "number"
+        description: "Transaction version"
+      locktime:
+        type: "number"
+        description: "Transaction locktime"
+      vin:
+        type: "array"
+        description: "Array of transaction inputs"
+        items:
+          $ref: "#/definitions/getTxResponse_vin"
+      vout:
+        type: "array"
+        description: "Array of transaction outputs"
+        items:
+          $ref: "#/definitions/getTxResponse_vout"
+      blocktime:
+        type: "number"
+        description: "Block time of this transaction"
+      blockheight:
+        type: "number"
+        description: "Block height of this transaction"
+      totalsent:
+        type: "number"
+        description: "Total NEBL sent in this transaction in satoshis"
+      fee:
+        type: "number"
+        description: "Total NEBL used as fee for this transcation in satoshis"
+      blockhash:
+        type: "string"
+        description: "Hash of the block this transaction is in"
+      time:
+        type: "number"
+        description: "Transaction time"
+      confirmations:
+        type: "number"
+        description: "Number of transaction confirmations"
+      valueOut:
+        type: "number"
+        description: "Total NEBL output in this transaction"
+      valueIn:
+        type: "number"
+        description: "Total NEBL input in this transaction"
+      fees:
+        type: "number"
+        description: "Total NEBL used in fees for this transaction"
+      size:
+        type: "number"
+        description: "Transcation size in bytes"
+    example:
+      fees: 5.02500479152029466689555192715488374233245849609375
+      locktime: 6.02745618307040320615897144307382404804229736328125
+      fee: 1.489415909854170383397331534069962799549102783203125
+      txid: "txid"
+      confirmations: 7.4577447736837658709418974467553198337554931640625
+      version: 0.80082819046101150206595775671303272247314453125
+      vout:
+      - scriptPubKey:
+          addresses:
+          - "addresses"
+          - "addresses"
+          asm: "asm"
+          hex: "hex"
+          type: "type"
+          reqSigs: 5.63737665663332876420099637471139430999755859375
+        usedBlockheight: 4.1456080298839363962315474054776132106781005859375
+        usedTxid: "usedTxid"
+        used: true
+        value: 9.301444243932575517419536481611430644989013671875
+        n: 3.61607674925191080461672754609026014804840087890625
+        blockheight: 2.027123023002321833274663731572218239307403564453125
+      - scriptPubKey:
+          addresses:
+          - "addresses"
+          - "addresses"
+          asm: "asm"
+          hex: "hex"
+          type: "type"
+          reqSigs: 5.63737665663332876420099637471139430999755859375
+        usedBlockheight: 4.1456080298839363962315474054776132106781005859375
+        usedTxid: "usedTxid"
+        used: true
+        value: 9.301444243932575517419536481611430644989013671875
+        n: 3.61607674925191080461672754609026014804840087890625
+        blockheight: 2.027123023002321833274663731572218239307403564453125
+      blockheight: 1.231513536777255612975068288506008684635162353515625
+      valueOut: 1.173074250955943309548956676735542714595794677734375
+      blockhash: "blockhash"
+      size: 9.965781217890562260208753286860883235931396484375
+      blocktime: 7.3862819483858839220147274318151175975799560546875
+      valueIn: 4.9652184929849543237878606305457651615142822265625
+      totalsent: 1.024645700144157789424070870154537260532379150390625
+      vin:
+      - sequence: 5.962133916683182377482808078639209270477294921875
+        scriptSig:
+          asm: "asm"
+          hex: "hex"
+        valueSat: 2.3021358869347654518833223846741020679473876953125
+        txid: "txid"
+        value: 5.63737665663332876420099637471139430999755859375
+        n: 7.061401241503109105224211816675961017608642578125
+        vout: 1.46581298050294517310021547018550336360931396484375
+      - sequence: 5.962133916683182377482808078639209270477294921875
+        scriptSig:
+          asm: "asm"
+          hex: "hex"
+        valueSat: 2.3021358869347654518833223846741020679473876953125
+        txid: "txid"
+        value: 5.63737665663332876420099637471139430999755859375
+        n: 7.061401241503109105224211816675961017608642578125
+        vout: 1.46581298050294517310021547018550336360931396484375
+      time: 6.8468526983526398765889098285697400569915771484375
+  getRawTxResponse:
+    type: "object"
+    properties:
+      rawtx:
+        type: "string"
+        description: "Raw hex representing the transaction"
+    example:
+      rawtx: "rawtx"
+  getAddressResponse:
+    type: "object"
+    properties:
+      addrStr:
+        type: "string"
+        description: "Address in string form"
+      balance:
+        type: "number"
+        description: "NEBL balance"
+      balanceSat:
+        type: "number"
+        description: "NEBL balance in satoshis"
+      totalReceived:
+        type: "number"
+        description: "Total NEBL received"
+      totalReceivedSat:
+        type: "number"
+        description: "Total NEBL received in satoshis"
+      totalSent:
+        type: "number"
+        description: "Total NEBL sent"
+      totalSentSat:
+        type: "number"
+        description: "Total NEBL sent satoshis"
+      unconfirmedBalance:
+        type: "number"
+        description: "Unconfirmed NEBL balance"
+      unconfirmedBalanceSat:
+        type: "number"
+        description: "Unconfirmed NEBL balance in satoshis"
+      unconfirmedTxAppearances:
+        type: "number"
+        description: "Number of unconfirmed transactions for this address"
+      txAppearances:
+        type: "number"
+        description: "Number of transactions for this address"
+      transactions:
+        type: "array"
+        description: "Array of transaction ids for this address"
+        items:
+          type: "string"
+    example:
+      unconfirmedBalance: 7.061401241503109105224211816675961017608642578125
+      totalReceivedSat: 5.962133916683182377482808078639209270477294921875
+      balance: 0.80082819046101150206595775671303272247314453125
+      balanceSat: 6.02745618307040320615897144307382404804229736328125
+      totalSentSat: 2.3021358869347654518833223846741020679473876953125
+      unconfirmedTxAppearances: 3.61607674925191080461672754609026014804840087890625
+      txAppearances: 2.027123023002321833274663731572218239307403564453125
+      addrStr: "addrStr"
+      totalReceived: 1.46581298050294517310021547018550336360931396484375
+      totalSent: 5.63737665663332876420099637471139430999755859375
+      unconfirmedBalanceSat: 9.301444243932575517419536481611430644989013671875
+      transactions:
+      - "transactions"
+      - "transactions"
+  getAddressBalanceResponse:
+    type: "number"
+    description: "Address balance in satoshis"
+  getAddressUnconfirmedBalanceResponse:
+    type: "number"
+    description: "Address unconfirmed balance in satoshis"
+  getAddressTotalReceivedResponse:
+    type: "number"
+    description: "Address total received in satoshis"
+  getAddressTotalSentResponse:
+    type: "number"
+    description: "Address total sent in satoshis"
+  getAddressUtxosResponse:
+    type: "array"
+    description: "Array of objects representing this address' UTXOs"
+    items:
+      $ref: "#/definitions/getAddressUtxosResponse_inner"
+  getTxsResponse:
+    type: "object"
+    properties:
+      pagesTotal:
+        type: "number"
+        description: "Number of pages of transactions"
+      txs:
+        type: "array"
+        description: "Array of transaction objects"
+        items:
+          $ref: "#/definitions/getTxResponse"
+    description: "Object containing an array of transaction objects"
+    example:
+      txs:
+      - fees: 5.02500479152029466689555192715488374233245849609375
+        locktime: 6.02745618307040320615897144307382404804229736328125
+        fee: 1.489415909854170383397331534069962799549102783203125
+        txid: "txid"
+        confirmations: 7.4577447736837658709418974467553198337554931640625
+        version: 0.80082819046101150206595775671303272247314453125
+        vout:
+        - scriptPubKey:
+            addresses:
+            - "addresses"
+            - "addresses"
+            asm: "asm"
+            hex: "hex"
+            type: "type"
+            reqSigs: 5.63737665663332876420099637471139430999755859375
+          usedBlockheight: 4.1456080298839363962315474054776132106781005859375
+          usedTxid: "usedTxid"
+          used: true
+          value: 9.301444243932575517419536481611430644989013671875
+          n: 3.61607674925191080461672754609026014804840087890625
+          blockheight: 2.027123023002321833274663731572218239307403564453125
+        - scriptPubKey:
+            addresses:
+            - "addresses"
+            - "addresses"
+            asm: "asm"
+            hex: "hex"
+            type: "type"
+            reqSigs: 5.63737665663332876420099637471139430999755859375
+          usedBlockheight: 4.1456080298839363962315474054776132106781005859375
+          usedTxid: "usedTxid"
+          used: true
+          value: 9.301444243932575517419536481611430644989013671875
+          n: 3.61607674925191080461672754609026014804840087890625
+          blockheight: 2.027123023002321833274663731572218239307403564453125
+        blockheight: 1.231513536777255612975068288506008684635162353515625
+        valueOut: 1.173074250955943309548956676735542714595794677734375
+        blockhash: "blockhash"
+        size: 9.965781217890562260208753286860883235931396484375
+        blocktime: 7.3862819483858839220147274318151175975799560546875
+        valueIn: 4.9652184929849543237878606305457651615142822265625
+        totalsent: 1.024645700144157789424070870154537260532379150390625
+        vin:
+        - sequence: 5.962133916683182377482808078639209270477294921875
+          scriptSig:
+            asm: "asm"
+            hex: "hex"
+          valueSat: 2.3021358869347654518833223846741020679473876953125
+          txid: "txid"
+          value: 5.63737665663332876420099637471139430999755859375
+          n: 7.061401241503109105224211816675961017608642578125
+          vout: 1.46581298050294517310021547018550336360931396484375
+        - sequence: 5.962133916683182377482808078639209270477294921875
+          scriptSig:
+            asm: "asm"
+            hex: "hex"
+          valueSat: 2.3021358869347654518833223846741020679473876953125
+          txid: "txid"
+          value: 5.63737665663332876420099637471139430999755859375
+          n: 7.061401241503109105224211816675961017608642578125
+          vout: 1.46581298050294517310021547018550336360931396484375
+        time: 6.8468526983526398765889098285697400569915771484375
+      - fees: 5.02500479152029466689555192715488374233245849609375
+        locktime: 6.02745618307040320615897144307382404804229736328125
+        fee: 1.489415909854170383397331534069962799549102783203125
+        txid: "txid"
+        confirmations: 7.4577447736837658709418974467553198337554931640625
+        version: 0.80082819046101150206595775671303272247314453125
+        vout:
+        - scriptPubKey:
+            addresses:
+            - "addresses"
+            - "addresses"
+            asm: "asm"
+            hex: "hex"
+            type: "type"
+            reqSigs: 5.63737665663332876420099637471139430999755859375
+          usedBlockheight: 4.1456080298839363962315474054776132106781005859375
+          usedTxid: "usedTxid"
+          used: true
+          value: 9.301444243932575517419536481611430644989013671875
+          n: 3.61607674925191080461672754609026014804840087890625
+          blockheight: 2.027123023002321833274663731572218239307403564453125
+        - scriptPubKey:
+            addresses:
+            - "addresses"
+            - "addresses"
+            asm: "asm"
+            hex: "hex"
+            type: "type"
+            reqSigs: 5.63737665663332876420099637471139430999755859375
+          usedBlockheight: 4.1456080298839363962315474054776132106781005859375
+          usedTxid: "usedTxid"
+          used: true
+          value: 9.301444243932575517419536481611430644989013671875
+          n: 3.61607674925191080461672754609026014804840087890625
+          blockheight: 2.027123023002321833274663731572218239307403564453125
+        blockheight: 1.231513536777255612975068288506008684635162353515625
+        valueOut: 1.173074250955943309548956676735542714595794677734375
+        blockhash: "blockhash"
+        size: 9.965781217890562260208753286860883235931396484375
+        blocktime: 7.3862819483858839220147274318151175975799560546875
+        valueIn: 4.9652184929849543237878606305457651615142822265625
+        totalsent: 1.024645700144157789424070870154537260532379150390625
+        vin:
+        - sequence: 5.962133916683182377482808078639209270477294921875
+          scriptSig:
+            asm: "asm"
+            hex: "hex"
+          valueSat: 2.3021358869347654518833223846741020679473876953125
+          txid: "txid"
+          value: 5.63737665663332876420099637471139430999755859375
+          n: 7.061401241503109105224211816675961017608642578125
+          vout: 1.46581298050294517310021547018550336360931396484375
+        - sequence: 5.962133916683182377482808078639209270477294921875
+          scriptSig:
+            asm: "asm"
+            hex: "hex"
+          valueSat: 2.3021358869347654518833223846741020679473876953125
+          txid: "txid"
+          value: 5.63737665663332876420099637471139430999755859375
+          n: 7.061401241503109105224211816675961017608642578125
+          vout: 1.46581298050294517310021547018550336360931396484375
+        time: 6.8468526983526398765889098285697400569915771484375
+      pagesTotal: 0.80082819046101150206595775671303272247314453125
+  getSyncResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        description: "Current sync status"
+      blockChainHeight:
+        type: "number"
+        description: "Current blockchain height"
+      syncPercentage:
+        type: "number"
+        description: "Current sync percentage"
+      height:
+        type: "number"
+        description: "Height node is synced to"
+      error:
+        type: "string"
+        description: "Recent sync error messages"
+      type:
+        type: "string"
+        description: "Node type"
+    description: "Object containing node sync status"
+    example:
+      syncPercentage: 6.02745618307040320615897144307382404804229736328125
+      blockChainHeight: 0.80082819046101150206595775671303272247314453125
+      error: "error"
+      type: "type"
+      status: "status"
+      height: 1.46581298050294517310021547018550336360931396484375
+  getStatusResponse:
+    type: "object"
+    description: "Depending on the function called, the structure and information\
+      \ contained in this object will vary"
   Error:
     type: "object"
     properties:
@@ -1440,6 +2576,13 @@ definitions:
     example:
       amount: 0.80082819046101150206595775671303272247314453125
       address: "address"
+  issueTokenRequest_flags:
+    properties:
+      splitChange:
+        type: "boolean"
+        description: "If true change will be split into 2 outputs, one for NEBL change\
+          \ and one for NTP1 change (recommended)"
+    description: "Object representing flags that potentialy modify this transaction"
   issueTokenRequest_metadata_urls:
     properties:
       name:
@@ -1568,3 +2711,94 @@ definitions:
         description: "TXID of a successful withdrawal"
     example:
       txId: "txId"
+  getTxResponse_vin:
+    properties:
+      txid:
+        type: "string"
+        description: "TXID of the input"
+      vout:
+        type: "number"
+        description: "output index"
+      scriptSig:
+        $ref: "#/definitions/getTransactionInfoResponse_scriptSig"
+      sequence:
+        type: "number"
+      value:
+        type: "number"
+        description: "Value of input in NEBL"
+      valueSat:
+        type: "number"
+        description: "Value of input in NEBL satoshi"
+      n:
+        type: "number"
+        description: "input index"
+    example:
+      sequence: 5.962133916683182377482808078639209270477294921875
+      scriptSig:
+        asm: "asm"
+        hex: "hex"
+      valueSat: 2.3021358869347654518833223846741020679473876953125
+      txid: "txid"
+      value: 5.63737665663332876420099637471139430999755859375
+      n: 7.061401241503109105224211816675961017608642578125
+      vout: 1.46581298050294517310021547018550336360931396484375
+  getTxResponse_vout:
+    properties:
+      value:
+        type: "number"
+        description: "Value of the output in NEBL"
+      n:
+        type: "number"
+        description: "Output index"
+      scriptPubKey:
+        $ref: "#/definitions/getTransactionInfoResponse_previousOutput"
+      used:
+        type: "boolean"
+        description: "Whether this output has now been used"
+      blockheight:
+        type: "number"
+        description: "Blockheight of this transaction"
+      usedBlockheight:
+        type: "number"
+        description: "Blockheight this output was used in"
+      usedTxid:
+        type: "string"
+        description: "TXID this output was used in"
+    example:
+      scriptPubKey:
+        addresses:
+        - "addresses"
+        - "addresses"
+        asm: "asm"
+        hex: "hex"
+        type: "type"
+        reqSigs: 5.63737665663332876420099637471139430999755859375
+      usedBlockheight: 4.1456080298839363962315474054776132106781005859375
+      usedTxid: "usedTxid"
+      used: true
+      value: 9.301444243932575517419536481611430644989013671875
+      n: 3.61607674925191080461672754609026014804840087890625
+      blockheight: 2.027123023002321833274663731572218239307403564453125
+  getAddressUtxosResponse_inner:
+    properties:
+      address:
+        type: "string"
+        description: "Address"
+      txid:
+        type: "string"
+        description: "Transaction ID"
+      vout:
+        type: "number"
+        description: "vout"
+      ts:
+        type: "number"
+        description: "Timestamp"
+      scriptPubKey:
+        type: "string"
+        description: "scriptPubKey"
+      amount:
+        type: "number"
+        description: "NEBL amount"
+      confirmations:
+        type: "number"
+        description: "Number of confirmations"
