@@ -12,6 +12,8 @@ package neblioapi
 type GetTokenMetadataResponse struct {
 	// ID of the token
 	TokenId string `json:"tokenId,omitempty"`
+	// Example UTXO containing this token.
+	SomeUtxo string `json:"someUtxo,omitempty"`
 	// Decimal places the token is divisible to
 	Divisibility float32 `json:"divisibility,omitempty"`
 	// Whether issuance of more tokens is locked
