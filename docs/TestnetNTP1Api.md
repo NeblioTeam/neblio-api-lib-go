@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**TestnetGetAddressInfo**](TestnetNTP1Api.md#TestnetGetAddressInfo) | **Get** /testnet/ntp1/addressinfo/{address} | Information On a Neblio Address
 [**TestnetGetTokenHolders**](TestnetNTP1Api.md#TestnetGetTokenHolders) | **Get** /testnet/ntp1/stakeholders/{tokenid} | Get Addresses Holding a Token
 [**TestnetGetTokenId**](TestnetNTP1Api.md#TestnetGetTokenId) | **Get** /testnet/ntp1/tokenid/{tokensymbol} | Returns the tokenId representing a token
-[**TestnetGetTokenMetadataOfIssuance**](TestnetNTP1Api.md#TestnetGetTokenMetadataOfIssuance) | **Get** /testnet/ntp1/tokenmetadata/{tokenid} | Get Issuance Metadata of Token
+[**TestnetGetTokenMetadata**](TestnetNTP1Api.md#TestnetGetTokenMetadata) | **Get** /testnet/ntp1/tokenmetadata/{tokenid} | Get Metadata of Token
 [**TestnetGetTokenMetadataOfUtxo**](TestnetNTP1Api.md#TestnetGetTokenMetadataOfUtxo) | **Get** /testnet/ntp1/tokenmetadata/{tokenid}/{utxo} | Get UTXO Metadata of Token
 [**TestnetGetTransactionInfo**](TestnetNTP1Api.md#TestnetGetTransactionInfo) | **Get** /testnet/ntp1/transactioninfo/{txid} | Information On an NTP1 Transaction
 [**TestnetIssueToken**](TestnetNTP1Api.md#TestnetIssueToken) | **Post** /testnet/ntp1/issue | Builds a transaction that issues a new NTP1 Token
@@ -156,11 +156,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **TestnetGetTokenMetadataOfIssuance**
-> GetTokenMetadataResponse TestnetGetTokenMetadataOfIssuance(ctx, tokenid)
-Get Issuance Metadata of Token
+# **TestnetGetTokenMetadata**
+> GetTokenMetadataResponse TestnetGetTokenMetadata(ctx, tokenid)
+Get Metadata of Token
 
-Returns the metadata associated with a token at time of issuance. 
+Returns the metadata associated with a token. 
 
 ### Required Parameters
 

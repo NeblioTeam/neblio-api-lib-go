@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **TotalSupply** | **float32** | Total number of tokens in supply | [optional] 
 **NumOfHolders** | **float32** | Total number of addresses this token is held at | [optional] 
 **NumOfTransfers** | **float32** | Total number of transactions of this token | [optional] 
-**NumofIssuance** | **float32** | Total number of times this token has been issued | [optional] 
+**NumOfIssuance** | **float32** | Total number of times this token has been issued | [optional] 
 **NumOfBurns** | **float32** | Number of times tokens have been burned | [optional] 
 **FirstBlock** | **float32** | Block number token was issued in | [optional] 
 **IssuanceTxid** | **string** | TXID the token was issued with | [optional] 
 **IssueAddress** | **string** | Address that issued the tokens | [optional] 
-**MetadataOfIssuance** | [**GetTokenMetadataResponseMetadataOfIssuance**](getTokenMetadataResponse_metadataOfIssuance.md) |  | [optional] 
-**MetadataOfUtxo** | [**GetTokenMetadataResponseMetadataOfIssuance**](getTokenMetadataResponse_metadataOfIssuance.md) |  | [optional] 
+**MetadataOfIssuence** | [**GetTokenMetadataResponseMetadataOfIssuence**](getTokenMetadataResponse_metadataOfIssuence.md) |  | [optional] 
+**MetadataOfUtxo** | [**GetTokenMetadataResponseMetadataOfIssuence**](getTokenMetadataResponse_metadataOfIssuence.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

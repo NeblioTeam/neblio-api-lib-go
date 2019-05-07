@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**GetAddressInfo**](NTP1Api.md#GetAddressInfo) | **Get** /ntp1/addressinfo/{address} | Information On a Neblio Address
 [**GetTokenHolders**](NTP1Api.md#GetTokenHolders) | **Get** /ntp1/stakeholders/{tokenid} | Get Addresses Holding a Token
 [**GetTokenId**](NTP1Api.md#GetTokenId) | **Get** /ntp1/tokenid/{tokensymbol} | Returns the tokenId representing a token
-[**GetTokenMetadataOfIssuance**](NTP1Api.md#GetTokenMetadataOfIssuance) | **Get** /ntp1/tokenmetadata/{tokenid} | Get Issuance Metadata of Token
+[**GetTokenMetadata**](NTP1Api.md#GetTokenMetadata) | **Get** /ntp1/tokenmetadata/{tokenid} | Get Metadata of Token
 [**GetTokenMetadataOfUtxo**](NTP1Api.md#GetTokenMetadataOfUtxo) | **Get** /ntp1/tokenmetadata/{tokenid}/{utxo} | Get UTXO Metadata of Token
 [**GetTransactionInfo**](NTP1Api.md#GetTransactionInfo) | **Get** /ntp1/transactioninfo/{txid} | Information On an NTP1 Transaction
 [**IssueToken**](NTP1Api.md#IssueToken) | **Post** /ntp1/issue | Builds a transaction that issues a new NTP1 Token
@@ -156,11 +156,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetTokenMetadataOfIssuance**
-> GetTokenMetadataResponse GetTokenMetadataOfIssuance(ctx, tokenid)
-Get Issuance Metadata of Token
+# **GetTokenMetadata**
+> GetTokenMetadataResponse GetTokenMetadata(ctx, tokenid)
+Get Metadata of Token
 
-Returns the metadata associated with a token at time of issuance. 
+Returns the metadata associated with a token. 
 
 ### Required Parameters
 
