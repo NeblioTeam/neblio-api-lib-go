@@ -9,7 +9,7 @@
 
 package neblioapi
 
-type GetTokenHoldersResponseHolders struct {
-	Address string `json:"address,omitempty"`
-	Amount float32 `json:"amount,omitempty"`
+// Metadata set by user on token for UTXO
+type GetTokenMetadataResponseMetadataOfUtxoUserData struct {
+	Meta []GetTokenMetadataResponseMetadataOfIssuenceDataUserDataMeta `json:"meta,omitempty"`
 }
