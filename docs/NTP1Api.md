@@ -157,7 +157,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetTokenMetadata**
-> GetTokenMetadataResponse GetTokenMetadata(ctx, tokenid)
+> GetTokenMetadataResponse GetTokenMetadata(ctx, tokenid, optional)
 Get Metadata of Token
 
 Returns the metadata associated with a token. 
@@ -168,6 +168,15 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **tokenid** | **string**| TokenId to request metadata for | 
+ **optional** | ***GetTokenMetadataOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a GetTokenMetadataOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **verbosity** | **optional.Float32**| 0 (Default) is fastest, 1 contains token stats, 2 contains token holding addresses | 
 
 ### Return type
 
@@ -185,7 +194,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetTokenMetadataOfUtxo**
-> GetTokenMetadataResponse GetTokenMetadataOfUtxo(ctx, tokenid, utxo)
+> GetTokenMetadataResponse GetTokenMetadataOfUtxo(ctx, tokenid, utxo, optional)
 Get UTXO Metadata of Token
 
 Returns the metadata associated with a token for that specific utxo instead of the issuance transaction. 
@@ -197,6 +206,16 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **tokenid** | **string**| TokenId to request metadata for | 
   **utxo** | **string**| Specific UTXO to request metadata for | 
+ **optional** | ***GetTokenMetadataOfUtxoOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a GetTokenMetadataOfUtxoOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **verbosity** | **optional.Float32**| 0 (Default) is fastest, 1 contains token stats, 2 contains token holding addresses | 
 
 ### Return type
 

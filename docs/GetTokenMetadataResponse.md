@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Divisibility** | **float32** | Decimal places the token is divisible to | [optional] 
 **LockStatus** | **bool** | Whether issuance of more tokens is locked | [optional] 
 **AggregationPolicy** | **string** | Whether the tokens are aggregatable | [optional] 
+**InitialIssuanceAmount** | **float32** | Total tokens issued in initial issuance | [optional] 
 **TotalSupply** | **float32** | Total number of tokens in supply | [optional] 
 **NumOfHolders** | **float32** | Total number of addresses this token is held at | [optional] 
 **NumOfTransfers** | **float32** | Total number of transactions of this token | [optional] 
@@ -16,7 +17,7 @@ Name | Type | Description | Notes
 **FirstBlock** | **float32** | Block number token was issued in | [optional] 
 **IssuanceTxid** | **string** | TXID the token was issued with | [optional] 
 **IssueAddress** | **string** | Address that issued the tokens | [optional] 
-**MetadataOfIssuence** | [**GetTokenMetadataResponseMetadataOfIssuence**](getTokenMetadataResponse_metadataOfIssuence.md) |  | [optional] 
+**MetadataOfIssuance** | [**GetTokenMetadataResponseMetadataOfIssuance**](getTokenMetadataResponse_metadataOfIssuance.md) |  | [optional] 
 **MetadataOfUtxo** | [**GetTokenMetadataResponseMetadataOfUtxo**](getTokenMetadataResponse_metadataOfUtxo.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
